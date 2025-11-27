@@ -174,12 +174,58 @@ Destination URL: https://hyunshu.com/portfolio
 - **Framework preset**: `Vite` (자동 감지될 수 있음)
 - **Build command**: `npm run build`
 - **Build output directory**: `dist`
-- **Root directory**: `/` (기본값)
+- **Root directory**: `/` (기본값) ⚠️ **반드시 `/`로 설정** - 프로젝트가 저장소 루트에 있으므로 변경하지 마세요
 
 ### 환경 변수
 
 필요한 경우 **Environment variables**에서 설정:
 - `NODE_VERSION`: `18` 또는 `20` (선택사항)
+
+---
+
+## [3-1] Custom Domain 설정
+
+### 도메인 추가하기
+
+1. **Cloudflare Dashboard** → **Pages** → 프로젝트 선택
+2. **Custom domains** 탭 클릭
+3. **Set up a custom domain** 버튼 클릭
+4. **Custom domain** 입력란에 도메인 입력:
+   ```
+   hyunshu.com
+   ```
+   ⚠️ **주의**: `https://`나 `http://`는 입력하지 마세요. 도메인 이름만 입력합니다.
+
+5. **Continue** 클릭
+
+### DNS 설정
+
+Cloudflare가 자동으로 DNS 레코드를 설정해줍니다:
+
+- **CNAME 레코드**: `hyunshu.com` → `your-project.pages.dev`
+- 또는 **A 레코드**: Cloudflare Pages IP 주소로 설정
+
+### 도메인 확인
+
+- 도메인이 Cloudflare에서 관리되고 있다면 자동으로 설정됩니다
+- 다른 DNS 제공업체를 사용 중이라면 수동으로 DNS 레코드를 추가해야 할 수 있습니다
+
+### www 서브도메인 추가 (선택사항)
+
+`www.hyunshu.com`도 사용하려면:
+
+1. **Custom domains**에서 **Add custom domain** 클릭
+2. `www.hyunshu.com` 입력
+3. Cloudflare가 자동으로 설정해줍니다
+
+### 최종 Custom Domain 설정 예시
+
+```
+✅ hyunshu.com          (메인 도메인)
+✅ www.hyunshu.com      (선택사항, www 서브도메인)
+```
+
+**참고**: Custom domain을 설정하면 `https://your-project.pages.dev` 대신 `https://hyunshu.com`으로 접근할 수 있습니다.
 
 ---
 

@@ -31,9 +31,20 @@ git push origin main
 ### 2. Cloudflare Pages 설정
 1. [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Pages**
 2. 프로젝트 선택 → **Settings** → **Builds & deployments**
-3. 설정:
+3. 빌드 설정:
+   - **Root directory**: `/` (기본값, 변경하지 마세요)
    - **Build command**: `npm run build`
    - **Build output directory**: `dist`
+
+### 2-1. Custom Domain 설정
+1. 프로젝트 → **Custom domains** 탭
+2. **Set up a custom domain** 클릭
+3. **Custom domain** 입력란에 입력:
+   ```
+   hyunshu.com
+   ```
+   ⚠️ `https://`나 `http://`는 입력하지 마세요. 도메인 이름만 입력합니다.
+4. **Continue** 클릭 → Cloudflare가 자동으로 DNS 설정
 
 ### 3. Cloudflare Redirect Rule 설정
 1. **Rules** → **Redirect Rules** → **Create rule**
@@ -42,6 +53,8 @@ git push origin main
    - **Expression**: `(http.host eq "hyunshu.com" and http.request.uri.path eq "/")`
    - **Status code**: `301`
    - **Destination URL**: `https://hyunshu.com/portfolio`
+
+📖 **상세 가이드**: `REDIRECT_RULES_GUIDE.md` 파일 참고
 
 ## 📋 테스트 체크리스트
 
