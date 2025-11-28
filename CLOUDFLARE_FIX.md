@@ -36,3 +36,4 @@ Cloudflare Dashboard에서:
 4. **Save** 클릭
 5. 배포 다시 실행 (또는 자동 재배포 대기)
 
+
