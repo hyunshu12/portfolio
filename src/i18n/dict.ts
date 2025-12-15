@@ -162,8 +162,8 @@ export const dict: Record<Locale, Dictionary> = {
         },
         {
           title: '2025 데이터 크리에이터 캠프',
-          subtitle: '심사중 · 2025 · 과학기술정보통신부',
-          description: '심사중',
+          subtitle: '최우수상 · 2025 · 과학기술정보통신부',
+          description: '최우수상 수상',
           contributions: ['데이터 수집 및 분석', 'AI 모델 설계', 'AI 모델 성능 개선'],
           tags: ['Data Analysis', 'Statistics', 'Deep Learning'],
           links: [{ label: 'PDF(예정)' }],
@@ -183,6 +183,11 @@ export const dict: Record<Locale, Dictionary> = {
           year: '2025',
           title: '학생 창업 유망팀 U300+',
           description: '학생 창업 유망팀 성장트랙 A 최종 선정'
+        },
+        {
+          year: '2025',
+          title: '2025 데이터 크리에이터 캠프',
+          description: '최우수상 수상'
         },
       ],
     },
