@@ -2,22 +2,305 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
+/* ─── Apple SF Pro font stack ─── */
+@layer base {
+  :root {
+    --apple-blue: #0071e3;
+    --apple-blue-dark: #2997ff;
+    --apple-blue-link: #0066cc;
+    --apple-near-black: #1d1d1f;
+    --apple-light-gray: #f5f5f7;
+    --apple-dark-surface: #1c1c1e;
+    --apple-dark-surface-2: #2c2c2e;
+    --apple-card-shadow: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
+
+    /* Theme-aware tokens (light defaults) */
+    --color-card-bg: #ffffff;
+    --color-card-title: #1d1d1f;
+    --color-card-subtitle: rgba(0, 0, 0, 0.48);
+    --color-card-body: rgba(0, 0, 0, 0.72);
+    --color-card-tag-bg: rgba(0, 0, 0, 0.06);
+    --color-card-tag-text: rgba(0, 0, 0, 0.64);
+    --color-card-divider: rgba(0, 0, 0, 0.08);
+    --color-card-disabled: rgba(0, 0, 0, 0.28);
+    --color-card-disabled-border: rgba(0, 0, 0, 0.18);
+    --color-dot-empty: rgba(0, 0, 0, 0.12);
+    --color-skill-name: #1d1d1f;
+    --color-skill-level: rgba(0, 0, 0, 0.48);
+    --color-award-title: #1d1d1f;
+    --color-award-desc: rgba(0, 0, 0, 0.56);
+    --color-label-muted: rgba(0, 0, 0, 0.4);
+  }
+
+  .dark {
+    --color-card-bg: #1c1c1e;
+    --color-card-title: #f5f5f7;
+    --color-card-subtitle: rgba(255, 255, 255, 0.40);
+    --color-card-body: rgba(255, 255, 255, 0.64);
+    --color-card-tag-bg: rgba(255, 255, 255, 0.08);
+    --color-card-tag-text: rgba(255, 255, 255, 0.56);
+    --color-card-divider: rgba(255, 255, 255, 0.10);
+    --color-card-disabled: rgba(255, 255, 255, 0.28);
+    --color-card-disabled-border: rgba(255, 255, 255, 0.16);
+    --color-dot-empty: rgba(255, 255, 255, 0.14);
+    --color-skill-name: #f5f5f7;
+    --color-skill-level: rgba(255, 255, 255, 0.40);
+    --color-award-title: #f5f5f7;
+    --color-award-desc: rgba(255, 255, 255, 0.50);
+    --color-label-muted: rgba(255, 255, 255, 0.36);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: var(--apple-light-gray);
+    color: var(--apple-near-black);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 17px;
+    line-height: 1.47;
+    letter-spacing: -0.022em;
+  }
+
+  .dark body {
+    background-color: #000000;
+    color: #f5f5f7;
+  }
+
+  /* Override anchor defaults — Apple blue only */
+  a {
+    color: var(--apple-blue-link);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .dark a {
+    color: var(--apple-blue-dark);
+  }
+
+  a:hover {
+    opacity: 0.8;
+  }
 }
 
-body {
-  @apply bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased;
+/* ─── Apple Navigation Glass ─── */
+@layer components {
+  .apple-nav {
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    height: 48px;
+    color: #ffffff;
+  }
+
+  /* ─── Apple Card ─── */
+  .apple-card {
+    background-color: #ffffff;
+    border-radius: 18px;
+    box-shadow: var(--apple-card-shadow);
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .dark .apple-card {
+    background-color: var(--apple-dark-surface);
+    box-shadow: rgba(0, 0, 0, 0.5) 3px 5px 30px 0px;
+  }
+
+  /* ─── Portfolio Project Card hover lift ─── */
+  .portfolio-project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: rgba(0, 0, 0, 0.18) 4px 12px 40px 0px;
+  }
+
+  .dark .portfolio-project-card:hover {
+    box-shadow: rgba(0, 0, 0, 0.6) 4px 12px 40px 0px;
+  }
+
+  /* ─── Apple Hero Section (always dark) ─── */
+  .apple-hero {
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  /* ─── Apple Section (light alternating) ─── */
+  .apple-section-light {
+    background-color: var(--apple-light-gray);
+  }
+
+  .dark .apple-section-light {
+    background-color: #000000;
+  }
+
+  .apple-section-white {
+    background-color: #ffffff;
+  }
+
+  .dark .apple-section-white {
+    background-color: var(--apple-dark-surface);
+  }
+
+  /* ─── Apple Typography ─── */
+  .apple-headline {
+    font-family: 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(2.5rem, 6vw, 3.5rem); /* 40–56px */
+    font-weight: 600;
+    line-height: 1.07;
+    letter-spacing: -0.028em;
+  }
+
+  .apple-subheadline {
+    font-family: 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(1.31rem, 2.5vw, 1.5rem); /* 21–24px */
+    font-weight: 400;
+    line-height: 1.19;
+    letter-spacing: -0.012em;
+  }
+
+  .apple-section-title {
+    font-family: 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(1.75rem, 4vw, 2.5rem); /* 28–40px */
+    font-weight: 600;
+    line-height: 1.10;
+    letter-spacing: -0.02em;
+  }
+
+  .apple-tile-heading {
+    font-family: 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.31rem; /* 21px */
+    font-weight: 700;
+    line-height: 1.19;
+    letter-spacing: 0.012em;
+  }
+
+  .apple-body {
+    font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.0625rem; /* 17px */
+    font-weight: 400;
+    line-height: 1.47;
+    letter-spacing: -0.022em;
+  }
+
+  .apple-caption {
+    font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.875rem; /* 14px */
+    font-weight: 400;
+    line-height: 1.43;
+    letter-spacing: -0.014em;
+  }
+
+  .apple-micro {
+    font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.75rem; /* 12px */
+    font-weight: 400;
+    line-height: 1.33;
+    letter-spacing: -0.007em;
+  }
+
+  /* ─── Apple Buttons ─── */
+  .apple-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--apple-blue);
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    text-decoration: none;
+  }
+
+  .apple-btn-primary:hover {
+    background-color: #0077ed;
+    opacity: 1;
+    color: #ffffff;
+  }
+
+  .apple-btn-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--apple-near-black);
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    text-decoration: none;
+  }
+
+  .apple-btn-dark:hover {
+    opacity: 0.8;
+    color: #ffffff;
+  }
+
+  /* Pill "Learn more" / "Contact" style */
+  .apple-pill-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--apple-blue-link);
+    border: 1px solid var(--apple-blue-link);
+    padding: 7px 18px;
+    border-radius: 980px;
+    font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    text-decoration: none;
+  }
+
+  .apple-pill-link:hover {
+    opacity: 0.75;
+    color: var(--apple-blue-link);
+  }
+
+  /* Pill link on dark background */
+  .apple-pill-link-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--apple-blue-dark);
+    border: 1px solid var(--apple-blue-dark);
+    padding: 7px 18px;
+    border-radius: 980px;
+    font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    text-decoration: none;
+  }
+
+  .apple-pill-link-dark:hover {
+    opacity: 0.75;
+    color: var(--apple-blue-dark);
+  }
+
+  /* ─── Legacy glass-card (keep for compatibility) ─── */
+  .glass-card {
+    @apply apple-card;
+  }
 }
 
-a {
-  @apply text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300;
-}
-
-.glass-card {
-  @apply rounded-2xl border border-slate-200/60 bg-white/80 shadow-lg shadow-slate-900/5 backdrop-blur-sm dark:border-slate-700/60 dark:bg-slate-900/70 dark:shadow-slate-950/40;
-}
-
+/* ─── Print ─── */
 @media print {
   @page {
     size: A4;
@@ -26,7 +309,8 @@ a {
 
   body {
     background: #ffffff !important;
-    color: #0f172a !important;
+    color: #1d1d1f !important;
+    font-size: 14px !important;
   }
 
   .no-print {
@@ -35,8 +319,15 @@ a {
 
   .print-surface {
     box-shadow: none !important;
-    border: none !important;
     background: #ffffff !important;
   }
-}
 
+  .apple-hero {
+    background: #ffffff !important;
+    color: #1d1d1f !important;
+  }
+
+  .apple-nav {
+    display: none !important;
+  }
+}
