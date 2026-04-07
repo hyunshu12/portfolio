@@ -1,3 +1,19 @@
 node_modules/
 .DS_Store
 dist/
+
+# Claude Code 로컬 설정 및 세션 데이터
+.claude/
+
+# Playwright MCP 세션 로그 및 스크린샷
+.playwright-mcp/
+
+# 환경 변수
+.env
+.env.local
+.env.*.local
+
+# 에디터/OS 임시 파일
+*.log
+*.swp
+.vscode/settings.json
