@@ -17,3 +17,7 @@ dist/
 *.log
 *.swp
 .vscode/settings.json
+
+# 스킬 설치 아티팩트
+.agents/
+skills-lock.json

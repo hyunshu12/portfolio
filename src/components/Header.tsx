@@ -1,6 +1,5 @@
-import { Languages, Moon, Sun } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 
-import profileImage from '../../img/1126조현수.jpg';
 import type { Locale } from '../i18n/dict';
 
 interface NavItem {
@@ -18,137 +17,52 @@ interface HeaderProps {
 
 const Header = ({ navItems, currentLocale, onToggleLocale, isDark, onToggleTheme }: HeaderProps) => {
   return (
-    <header className="apple-nav sticky top-0 z-50">
-      <div className="mx-auto flex w-full max-w-[980px] items-center justify-between gap-4 px-6 h-12 lg:px-4">
-        {/* Logo / Profile */}
-        <a
-          href="#hero"
-          className="flex items-center gap-2.5 shrink-0"
-          style={{ color: '#ffffff', textDecoration: 'none' }}
-        >
-          <img
-            src={profileImage}
-            alt="Hyunsoo Cho"
-            className="h-7 w-7 rounded-full object-cover"
-            style={{ opacity: 0.9 }}
-          />
-          <span
-            className="hidden sm:block"
-            style={{
-              fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-              fontSize: '13px',
-              fontWeight: 400,
-              color: 'rgba(255,255,255,0.85)',
-              letterSpacing: '-0.01em',
-            }}
-          >
-            Hyunsoo Cho
+    <header className="rec-nav no-print">
+      <div className="rec-container flex h-14 items-center justify-between gap-4">
+        <a href="#hero" className="rec-brand shrink-0">
+          <span className="rec-brand-frame">
+            <span className="rec-brand-corner rec-brand-corner--tl" aria-hidden="true" />
+            <span className="rec-brand-corner rec-brand-corner--tr" aria-hidden="true" />
+            <span className="rec-brand-corner rec-brand-corner--bl" aria-hidden="true" />
+            <span className="rec-brand-corner rec-brand-corner--br" aria-hidden="true" />
+            {currentLocale === 'ko' ? '조현수' : 'Hyunsoo Cho'}
           </span>
+          <span className="rec-brand-sub hidden sm:block">RESEARCH RECORD</span>
         </a>
 
-        {/* Nav links — desktop */}
-        <nav className="hidden md:flex flex-1 items-center justify-center gap-1">
+        <nav className="hidden flex-1 items-center justify-end gap-0.5 md:flex" aria-label="주요 섹션">
           {navItems.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              style={{
-                fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                fontSize: '12px',
-                fontWeight: 400,
-                color: 'rgba(255,255,255,0.85)',
-                padding: '4px 12px',
-                borderRadius: '4px',
-                textDecoration: 'none',
-                transition: 'color 0.15s ease',
-                letterSpacing: '-0.01em',
-              }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff'; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.85)'; }}
-            >
+            <a key={item.id} href={`#${item.id}`} className="rec-nav-link">
               {item.label}
             </a>
           ))}
         </nav>
 
-        {/* Controls */}
-        <div className="flex items-center gap-1 shrink-0">
+        <div className="flex shrink-0 items-center gap-1.5">
           <button
             type="button"
+            className="rec-ctrl"
             onClick={onToggleLocale}
-            aria-label="Toggle language"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-              background: 'rgba(255,255,255,0.12)',
-              border: 'none',
-              borderRadius: '6px',
-              padding: '4px 10px',
-              fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-              fontSize: '12px',
-              fontWeight: 400,
-              color: 'rgba(255,255,255,0.85)',
-              cursor: 'pointer',
-              letterSpacing: '-0.01em',
-              transition: 'background 0.15s ease',
-            }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.2)'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.12)'; }}
+            aria-label={currentLocale === 'ko' ? 'Switch to English' : '한국어로 전환'}
           >
-            <Languages style={{ width: '13px', height: '13px' }} aria-hidden="true" />
-            <span className="uppercase">{currentLocale}</span>
+            {currentLocale === 'ko' ? 'EN' : 'KO'}
           </button>
-
           <button
             type="button"
+            className="rec-ctrl"
             onClick={onToggleTheme}
-            aria-label="Toggle dark mode"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'rgba(255,255,255,0.12)',
-              border: 'none',
-              borderRadius: '6px',
-              padding: '5px 8px',
-              color: 'rgba(255,255,255,0.85)',
-              cursor: 'pointer',
-              transition: 'background 0.15s ease',
-            }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.2)'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.12)'; }}
+            aria-label={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
           >
-            {isDark
-              ? <Sun style={{ width: '13px', height: '13px' }} aria-hidden="true" />
-              : <Moon style={{ width: '13px', height: '13px' }} aria-hidden="true" />
-            }
+            {isDark ? <Sun size={13} aria-hidden="true" /> : <Moon size={13} aria-hidden="true" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile nav — scrollable pill row */}
-      <div
-        className="md:hidden px-4 pb-2 pt-0"
-        style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
-      >
-        <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
+      {/* 모바일: 가로 스크롤 내비게이션 */}
+      <div className="md:hidden" style={{ borderTop: '1px solid var(--line-soft)' }}>
+        <div className="rec-container no-scrollbar flex items-center gap-0.5 overflow-x-auto py-1.5">
           {navItems.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className="shrink-0"
-              style={{
-                fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                fontSize: '11px',
-                fontWeight: 400,
-                color: 'rgba(255,255,255,0.75)',
-                padding: '3px 10px',
-                borderRadius: '4px',
-                textDecoration: 'none',
-                whiteSpace: 'nowrap',
-              }}
-            >
+            <a key={item.id} href={`#${item.id}`} className="rec-nav-link text-xs">
               {item.label}
             </a>
           ))}

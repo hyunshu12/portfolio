@@ -81,9 +81,9 @@ export const dict: Record<Locale, Dictionary> = {
       contact: '연락처',
     },
     hero: {
-      greeting: '안녕하세요! 저는',
-      title: '조현수',
-      role: 'AI 엔지니어 · 데이터 분석가',
+      greeting: '연구 기록 · Research Record',
+      title: '데이터에서 문제를 검출하고,\n기록으로 증명합니다.',
+      role: '조현수 — AI 엔지니어 · 데이터 분석가',
       description:
         '중학교 때부터 인공지능과 데이터를 탐구하며 연구와 실무 프로젝트로 역량을 확장해 왔습니다. 의미 있는 문제를 데이터로 풀어내는 데 즐거움을 느낍니다.',
       ctaPrint: 'PDF 저장',
@@ -210,9 +210,9 @@ export const dict: Record<Locale, Dictionary> = {
       contact: 'Contact',
     },
     hero: {
-      greeting: 'Hello, I am',
-      title: 'Hyunsoo Cho',
-      role: 'AI Engineer · Data Analyst',
+      greeting: 'Research Record · 연구 기록',
+      title: 'Detect it in data.\nProve it on record.',
+      role: 'Hyunsoo Cho — AI Engineer · Data Analyst',
       description:
         'I explore AI and data with curiosity, grounding my learning in research outputs and hands-on projects that solve real problems.',
       ctaPrint: 'Save as PDF',

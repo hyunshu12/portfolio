@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Instagram, Mail, Phone } from 'lucide-react';
 
 import profileImage from '../img/1126조현수.jpg';
 
@@ -33,17 +32,12 @@ const resolveInitialTheme = (): boolean => {
   return window.matchMedia('(prefers-color-scheme: dark)').matches;
 };
 
-const getContactIcon = (href: string) => {
-  if (href.startsWith('tel:')) return <Phone style={{ width: '18px', height: '18px', color: '#0071e3' }} aria-hidden="true" />;
-  if (href.startsWith('mailto:')) return <Mail style={{ width: '18px', height: '18px', color: '#0071e3' }} aria-hidden="true" />;
-  return <Instagram style={{ width: '18px', height: '18px', color: '#0071e3' }} aria-hidden="true" />;
-};
-
 const App = () => {
   const [locale, setLocale] = useState<Locale>(() => resolveInitialLocale());
   const [isDark, setIsDark] = useState<boolean>(() => resolveInitialTheme());
 
   const messages = dict[locale];
+  const ko = locale === 'ko';
 
   const navItems = useMemo(
     () => [
@@ -69,8 +63,21 @@ const App = () => {
   const toggleLocale = () => setLocale((prev) => (prev === 'ko' ? 'en' : 'ko'));
   const toggleTheme = () => setIsDark((prev) => !prev);
 
+  const stats = [
+    { value: '1', label: ko ? 'KCI 등재 논문' : 'KCI PUBLICATION' },
+    { value: '3+', label: ko ? '전국 단위 수상' : 'NATIONAL AWARDS' },
+    { value: '6', label: ko ? '수행 프로젝트' : 'PROJECTS' },
+  ];
+
+  const facts = [
+    { label: 'SCHOOL', value: ko ? '한국디지털미디어고' : 'Korea Digital Media HS' },
+    { label: 'DEPT', value: 'E-Business' },
+    { label: 'DOMAIN', value: ko ? 'AI · 데이터' : 'AI · Data' },
+    { label: 'STATUS', value: ko ? '재학 중' : 'Enrolled' },
+  ];
+
   return (
-    <div style={{ minHeight: '100vh' }}>
+    <div className="min-h-screen">
       <Header
         navItems={navItems}
         currentLocale={locale}
@@ -80,278 +87,94 @@ const App = () => {
       />
 
       <main>
-        {/* ── Hero ── Always dark/black, cinematic */}
-        <section
-          id="hero"
-          className="no-print"
-          style={{
-            background: '#000000',
-            color: '#ffffff',
-            paddingTop: '120px',
-            paddingBottom: '100px',
-          }}
-        >
-          <div
-            style={{
-              maxWidth: '980px',
-              margin: '0 auto',
-              padding: '0 24px',
-            }}
-          >
-            {/* Desktop two-column: text left, photo right */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '48px', justifyContent: 'space-between' }}>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                {/* Eyebrow */}
-                <p
-                  style={{
-                    fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    color: '#2997ff',
-                    letterSpacing: '0.12em',
-                    textTransform: 'uppercase',
-                    marginBottom: '20px',
-                  }}
-                >
-                  {messages.hero.greeting}
-                </p>
-
-                {/* Main headline */}
-                <h1
-                  style={{
-                    fontFamily: "'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                    fontSize: 'clamp(3rem, 7vw, 4.5rem)',
-                    fontWeight: 600,
-                    lineHeight: 1.04,
-                    letterSpacing: '-0.032em',
-                    color: '#ffffff',
-                    margin: '0 0 16px 0',
-                  }}
-                >
-                  {messages.hero.title}
-                </h1>
-
-                {/* Role */}
-                <p
-                  style={{
-                    fontFamily: "'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                    fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
-                    fontWeight: 300,
-                    lineHeight: 1.25,
-                    letterSpacing: '-0.012em',
-                    color: 'rgba(255,255,255,0.6)',
-                    marginBottom: '24px',
-                  }}
-                >
-                  {messages.hero.role}
-                </p>
-
-                {/* Description */}
-                <p
-                  style={{
-                    fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                    fontSize: '17px',
-                    fontWeight: 400,
-                    lineHeight: 1.58,
-                    letterSpacing: '-0.022em',
-                    color: 'rgba(255,255,255,0.56)',
-                    maxWidth: '520px',
-                    marginBottom: '40px',
-                  }}
-                >
-                  {messages.hero.description}
-                </p>
-
-                {/* CTAs */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
-                  <a href="#contact" className="apple-btn-primary" style={{ gap: '8px' }}>
-                    <Mail style={{ width: '15px', height: '15px' }} aria-hidden="true" />
+        {/* ── 히어로: 논문 표지처럼, 사진에는 검출 프레임 ── */}
+        <section id="hero" className="scroll-mt-24">
+          <div className="rec-container">
+            <div className="flex items-center justify-between gap-14 pb-16 pt-20 md:pt-28">
+              <div className="min-w-0 flex-1">
+                <p className="rec-eyebrow anim-rise">{messages.hero.greeting}</p>
+                <h1 className="rec-display anim-rise anim-d1 mt-5">{messages.hero.title}</h1>
+                <p className="hero-role anim-rise anim-d2 mt-6">{messages.hero.role}</p>
+                <p className="hero-abstract anim-rise anim-d3 mt-7">{messages.hero.description}</p>
+                <div className="anim-rise anim-d4 mt-10 flex flex-wrap items-center gap-4">
+                  <a href="#contact" className="btn-ink">
                     {messages.hero.ctaContact}
                   </a>
-                  <a href="#projects" className="apple-pill-link-dark">
-                    {messages.nav.projects} →
+                  <a href="#projects" className="ref-link" style={{ fontSize: '13.5px' }}>
+                    {ko ? '연구 실적 보기' : 'View the record'} ↓
                   </a>
                 </div>
               </div>
 
-              {/* Profile photo — hidden on small screens */}
-              <div
-                className="hidden lg:flex"
-                style={{ flexShrink: 0, alignItems: 'center', justifyContent: 'center' }}
-              >
-                <div style={{ position: 'relative' }}>
-                  <div
-                    style={{
-                      position: 'absolute',
-                      inset: '-8px',
-                      borderRadius: '50%',
-                      background: 'conic-gradient(from 180deg, #0071e3 0%, rgba(41,151,255,0.3) 40%, transparent 60%)',
-                      opacity: 0.5,
-                    }}
-                  />
-                  <img
-                    src={profileImage}
-                    alt="Hyunsoo Cho"
-                    style={{
-                      position: 'relative',
-                      width: '200px',
-                      height: '200px',
-                      borderRadius: '50%',
-                      objectFit: 'cover',
-                      border: '2px solid rgba(255,255,255,0.1)',
-                      display: 'block',
-                    }}
-                  />
-                </div>
+              {/* 시그니처: YOLO 검출 프레임 — 본인의 KCI 검출 연구를 인용 */}
+              <div className="det-frame det-frame--hero hidden shrink-0 lg:block">
+                <span className="det-tag">{ko ? '연구자 · 0.99' : 'researcher · 0.99'}</span>
+                <span className="det-corner det-corner--tl" aria-hidden="true" />
+                <span className="det-corner det-corner--tr" aria-hidden="true" />
+                <span className="det-corner det-corner--bl" aria-hidden="true" />
+                <span className="det-corner det-corner--br" aria-hidden="true" />
+                <img src={profileImage} alt={ko ? '조현수 프로필 사진' : 'Portrait of Hyunsoo Cho'} className="hero-photo" />
               </div>
             </div>
 
-            {/* Stats strip */}
-            <div
-              style={{
-                marginTop: '64px',
-                paddingTop: '32px',
-                borderTop: '1px solid rgba(255,255,255,0.08)',
-                display: 'flex',
-                gap: '48px',
-                flexWrap: 'wrap',
-              }}
-            >
-              {[
-                { number: '1', label: locale === 'ko' ? 'KCI 등재 논문' : 'KCI Publication' },
-                { number: '3+', label: locale === 'ko' ? '수상 경력' : 'Awards' },
-                { number: '6', label: locale === 'ko' ? '프로젝트' : 'Projects' },
-              ].map((stat) => (
-                <div key={stat.label} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                  <span
-                    style={{
-                      fontFamily: "'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                      fontSize: 'clamp(2rem, 4vw, 2.5rem)',
-                      fontWeight: 600,
-                      lineHeight: 1,
-                      letterSpacing: '-0.03em',
-                      color: '#ffffff',
-                    }}
-                  >
-                    {stat.number}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                      fontSize: '13px',
-                      fontWeight: 400,
-                      color: 'rgba(255,255,255,0.4)',
-                      letterSpacing: '-0.01em',
-                    }}
-                  >
-                    {stat.label}
-                  </span>
+            <div className="stat-grid mb-20">
+              {stats.map((stat) => (
+                <div key={stat.label} className="stat-cell">
+                  <p className="stat-num">{stat.value}</p>
+                  <p className="stat-label">{stat.label}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── Sections — alternating light/white/light ── */}
-        <div className="print-surface">
-          {/* About — white */}
-          <Section id="about" title={messages.about.title} variant="white" contentClassName="block">
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) auto', gap: '24px', alignItems: 'start' }}>
-              {/* Summary text */}
-              <div
-                className="apple-card portfolio-project-card"
-                style={{ background: 'var(--color-card-bg)', padding: '32px', flex: 1 }}
-              >
-                <p
-                  style={{
-                    fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                    fontSize: '17px',
-                    fontWeight: 400,
-                    lineHeight: 1.65,
-                    letterSpacing: '-0.022em',
-                    color: 'var(--color-card-body)',
-                    margin: 0,
-                  }}
-                >
-                  {messages.about.summary}
-                </p>
-              </div>
-
-              {/* Quick facts sidebar */}
-              <div
-                className="apple-card hidden sm:flex"
-                style={{
-                  background: '#0071e3',
-                  padding: '28px 24px',
-                  flexDirection: 'column',
-                  gap: '20px',
-                  minWidth: '200px',
-                }}
-              >
-                {[
-                  { label: locale === 'ko' ? '학교' : 'School', value: locale === 'ko' ? '한국디지털미디어고' : 'Korea Digital Media HS' },
-                  { label: locale === 'ko' ? '학과' : 'Dept.', value: 'E-Business' },
-                  { label: locale === 'ko' ? '분야' : 'Domain', value: locale === 'ko' ? 'AI · 데이터' : 'AI · Data' },
-                  { label: locale === 'ko' ? '상태' : 'Status', value: locale === 'ko' ? '재학 중' : 'Enrolled' },
-                ].map((fact) => (
-                  <div key={fact.label}>
-                    <p
-                      style={{
-                        fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                        fontSize: '11px',
-                        fontWeight: 600,
-                        color: 'rgba(255,255,255,0.6)',
-                        letterSpacing: '0.08em',
-                        textTransform: 'uppercase',
-                        margin: '0 0 3px 0',
-                      }}
-                    >
-                      {fact.label}
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                        fontSize: '14px',
-                        fontWeight: 500,
-                        color: '#ffffff',
-                        letterSpacing: '-0.012em',
-                        margin: 0,
-                      }}
-                    >
-                      {fact.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
+        {/* ── 01 소개: 초록(抄錄) + 신상 표 ── */}
+        <Section id="about" no="01" label="ABOUT" title={messages.about.title}>
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_240px] md:gap-14">
+            <p className="about-abstract">{messages.about.summary}</p>
+            <div>
+              {facts.map((fact) => (
+                <div key={fact.label} className="fact-row">
+                  <span className="fact-label">{fact.label}</span>
+                  <span className="fact-value">{fact.value}</span>
+                </div>
+              ))}
             </div>
-          </Section>
+          </div>
+        </Section>
 
-          {/* Skills — light */}
-          <Section
-            id="skills"
-            title={messages.skills.title}
-            description={messages.skills.description}
-            variant="light"
-            contentClassName="md:grid-cols-2"
-          >
+        {/* ── 02 기술: 숙련도 표 ── */}
+        <Section
+          id="skills"
+          no="02"
+          label="SKILLS"
+          title={messages.skills.title}
+          description={messages.skills.description}
+        >
+          <div className="skill-table">
             {SKILLS.map((skill) => (
               <SkillPill
                 key={skill.name}
                 name={skill.name}
                 level={skill.level}
                 label={messages.skills.levels[skill.level]}
-                tooltip={locale === 'ko' ? `숙련도: ${messages.skills.levels[skill.level]}` : `Level: ${messages.skills.levels[skill.level]}`}
+                tooltip={
+                  ko ? `숙련도: ${messages.skills.levels[skill.level]}` : `Level: ${messages.skills.levels[skill.level]}`
+                }
               />
             ))}
-          </Section>
+          </div>
+        </Section>
 
-          {/* Projects — white */}
-          <Section
-            id="projects"
-            title={messages.projects.title}
-            description={messages.projects.description}
-            variant="white"
-          >
+        {/* ── 03 프로젝트: 서지 형식 실적 목록 ── */}
+        <Section
+          id="projects"
+          no="03"
+          label="PROJECTS"
+          title={messages.projects.title}
+          description={messages.projects.description}
+        >
+          <div className="record-list">
             {messages.projects.items.map((project, i) => (
               <ProjectCard
                 key={project.title}
@@ -365,119 +188,59 @@ const App = () => {
                 contributionLabel={messages.projects.contributionLabel}
               />
             ))}
-          </Section>
+          </div>
+        </Section>
 
-          {/* Awards — light */}
-          <Section
-            id="awards"
-            title={messages.awards.title}
-            description={messages.awards.description}
-            variant="light"
-            contentClassName="block"
-          >
-            <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
-              {messages.awards.items.map((award, i) => (
-                <AwardItem key={`${award.year}-${award.title}`} {...award} isLast={i === messages.awards.items.length - 1} />
-              ))}
-            </ul>
-          </Section>
+        {/* ── 04 수상: 연보 ── */}
+        <Section
+          id="awards"
+          no="04"
+          label="AWARDS"
+          title={messages.awards.title}
+          description={messages.awards.description}
+        >
+          <ul className="award-list">
+            {messages.awards.items.map((award, i) => (
+              <AwardItem key={`${award.year}-${award.title}`} {...award} isLast={i === messages.awards.items.length - 1} />
+            ))}
+          </ul>
+        </Section>
 
-          {/* Contact — dark */}
-          <Section
-            id="contact"
-            title={messages.contact.title}
-            description={messages.contact.description}
-            variant="dark"
-          >
-            <div className="grid gap-3 sm:grid-cols-2">
-              {messages.contact.items.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px',
-                    background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: '12px',
-                    padding: '18px 20px',
-                    textDecoration: 'none',
-                    transition: 'background 0.2s ease, border-color 0.2s ease',
-                    cursor: 'pointer',
-                  }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.background = 'rgba(255,255,255,0.1)';
-                    el.style.borderColor = 'rgba(255,255,255,0.2)';
-                  }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.background = 'rgba(255,255,255,0.06)';
-                    el.style.borderColor = 'rgba(255,255,255,0.1)';
-                  }}
-                >
-                  {getContactIcon(item.href)}
-                  <div>
-                    <p
-                      style={{
-                        fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                        fontSize: '11px',
-                        fontWeight: 600,
-                        color: 'rgba(255,255,255,0.4)',
-                        letterSpacing: '0.08em',
-                        textTransform: 'uppercase',
-                        marginBottom: '2px',
-                      }}
-                    >
-                      {item.label}
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                        fontSize: '15px',
-                        fontWeight: 500,
-                        color: '#ffffff',
-                        letterSpacing: '-0.018em',
-                      }}
-                    >
-                      {item.value}
-                    </p>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            <div style={{ marginTop: '32px' }}>
-              <a href="mailto:astre0198@dimigo.hs.kr" className="apple-btn-primary">
-                <Mail style={{ width: '15px', height: '15px' }} aria-hidden="true" />
+        {/* ── 05 연락처 ── */}
+        <Section
+          id="contact"
+          no="05"
+          label="CONTACT"
+          title={messages.contact.title}
+          description={messages.contact.description}
+        >
+          <div className="max-w-xl">
+            {messages.contact.items.map((item) => (
+              <a key={item.label} href={item.href} className="contact-row">
+                <span className="fact-label">{item.label}</span>
+                <span className="contact-value">{item.value}</span>
+              </a>
+            ))}
+            <div className="mt-9">
+              <a href="mailto:astre0198@dimigo.hs.kr" className="btn-ink">
                 {messages.contact.ctaMail}
               </a>
             </div>
-          </Section>
-        </div>
-
-        {/* Footer */}
-        <footer
-          style={{
-            background: '#000000',
-            borderTop: '1px solid rgba(255,255,255,0.08)',
-            padding: '20px 24px',
-            textAlign: 'center',
-          }}
-        >
-          <p
-            style={{
-              fontFamily: "'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-              fontSize: '12px',
-              color: 'rgba(255,255,255,0.28)',
-              letterSpacing: '-0.007em',
-            }}
-          >
-            © {new Date().getFullYear()} Hyunsoo Cho. All rights reserved.
-          </p>
-        </footer>
+          </div>
+        </Section>
       </main>
+
+      <footer className="rec-footer">
+        <div className="rec-container flex items-center justify-between gap-4">
+          <p className="rec-footer-text">
+            © {new Date().getFullYear()} {ko ? '조현수 — 연구 기록' : 'Hyunsoo Cho — Research Record'}
+          </p>
+          <span
+            aria-hidden="true"
+            style={{ width: '10px', height: '10px', background: 'var(--honey)', borderRadius: '2px' }}
+          />
+        </div>
+      </footer>
     </div>
   );
 };
